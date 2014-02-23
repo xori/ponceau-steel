@@ -1,18 +1,27 @@
 package ee.ponceau.steel;
 
+import java.awt.image.BufferStrategy;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Evan Verworn
  */
 public class Window extends javax.swing.JFrame {
-
+  public BufferStrategy buffer;
+  
   /**
    * Creates new form Window
    */
   public Window() {
+    super("Ponceau Steel");
     initComponents();
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setVisible(true); 
+    createBufferStrategy(2);
+    buffer = getBufferStrategy();
   }
-
+  
   /**
    * This method is called from within the constructor to initialize the form.
    * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,11 +37,11 @@ public class Window extends javax.swing.JFrame {
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 400, Short.MAX_VALUE)
+      .addGap(0, 800, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 300, Short.MAX_VALUE)
+      .addGap(0, 400, Short.MAX_VALUE)
     );
 
     pack();
@@ -45,9 +54,11 @@ public class Window extends javax.swing.JFrame {
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
-        new Window().setVisible(true);
+        Main.i.setWindow(new Window());
       }
     });
+    Main.i.hold();
+    Main.i.mainLoop();
   }
   // Variables declaration - do not modify//GEN-BEGIN:variables
   // End of variables declaration//GEN-END:variables
