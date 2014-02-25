@@ -1,5 +1,6 @@
 package ee.ponceau.steel;
 
+import ee.ponceau.steel.util.Log;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
@@ -57,6 +58,16 @@ public class Window extends javax.swing.JFrame {
         Main.i.setWindow(new Window());
       }
     });
+    
+    if(args.length > 0) {
+      switch(args[0]) {
+        case "-debug": Log.STATE = Log.Level.LOG; break;
+        case "-warning": Log.STATE = Log.Level.WARNING; break;
+        case "-error": Log.STATE = Log.Level.ERROR; break;
+        case "-fatal": Log.STATE = Log.Level.FATAL; break;
+      }
+    }
+    
     Main.i.hold();
     Main.i.mainLoop();
   }

@@ -6,8 +6,10 @@ import ee.ponceau.steel.controls.GenericControls;
 import ee.ponceau.steel.definitions.Controller;
 import ee.ponceau.steel.definitions.Entity;
 import ee.ponceau.steel.definitions.Scene;
+import ee.ponceau.steel.util.VirtualKeyboard;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -35,9 +37,18 @@ public class MainMenu implements Scene{
   
   @Override
   public void onUpdate(double delta) {
-    //ge.camera.pointAt(player);
-    player.position.x += delta * 2;
-    player.position.y += delta * 2;
+    while(!myControls.keys.isEmpty()){
+      VirtualKeyboard key = myControls.keys;
+      if(key.isPressed(KeyEvent.VK_W))
+        player.velocity.y -= delta * 2;
+      if(key.isPressed(KeyEvent.VK_S))
+        player.velocity.y += delta * 2;
+      if(key.isPressed(KeyEvent.VK_A))
+        player.velocity.x -= delta * 2;
+      if(key.isPressed(KeyEvent.VK_D))
+        player.velocity.x += delta * 2;
+      player.velocity.limit(-5, 5);
+    }
   }
 
   @Override

@@ -14,6 +14,7 @@ import java.awt.Shape;
  */
 public abstract class Entity {
   public Vector3D position;
+  public Vector2D velocity;
   public Vector2D dimension;
   public Shape _shape;
   
@@ -23,12 +24,14 @@ public abstract class Entity {
   
   public Entity(double x, double y, double w, double h) {
     position = new Vector3D(x, y, 0);
+    velocity = new Vector3D(0, 0, 0);
     dimension = new Vector2D(w, h);
     _shape = new Rectangle();
   }
   
   public void update(double delta) {
-    
+    position = position.add(velocity);
+    velocity = velocity.scale(1 - (0.5 * delta));
   }
   
   public void draw(GraphicsEngine engine, Graphics2D g) {

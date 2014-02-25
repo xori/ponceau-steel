@@ -2,6 +2,7 @@ package ee.ponceau.steel;
 
 import ee.ponceau.steel.definitions.Entity;
 import ee.ponceau.steel.scenes.MainMenu;
+import ee.ponceau.steel.util.Log;
 import java.awt.Toolkit;
 
 /**
@@ -20,11 +21,12 @@ public class Main {
    */
   
   public static boolean GAME_RUNNING = true;
+  public long soFar = System.currentTimeMillis(), temp;
   
   private Main() {}
   
   public synchronized void mainLoop () {
-    long soFar = System.currentTimeMillis(), temp;
+    
     while(GAME_RUNNING) {
       //AI Update
       //Network Broadcast
@@ -48,7 +50,7 @@ public class Main {
       try {
         temp = soFar;
         soFar = System.currentTimeMillis();
-        Thread.sleep((long) (1000.0 / 60.0) - (soFar - temp));
+        Thread.sleep((long) (1000.0 / graphics.MAXFPS) - (soFar - temp));
       } catch(Exception e) { }
     }
     window.dispose();
@@ -71,6 +73,7 @@ public class Main {
     this.window = window;
     this.stage.switchScene(new MainMenu());
     this.graphics = new GraphicsEngine(window.buffer.getDrawGraphics());
+    System.out.println("Debug Level: " + Log.STATE);
     this.notify(); // this begins the mainLoop
   }
 }

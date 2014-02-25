@@ -1,12 +1,11 @@
 package ee.ponceau.steel;
 
 import ee.ponceau.steel.definitions.Entity;
+import ee.ponceau.steel.util.Log;
 import ee.ponceau.steel.util.Vector2D;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -18,6 +17,8 @@ public class GraphicsEngine {
   private Stage stage;
   private Graphics2D g;
   public Camera camera = new Camera();
+  
+  public final double MAXFPS = 60;
   
   public GraphicsEngine(Graphics g){
     this.g = (Graphics2D) g;
