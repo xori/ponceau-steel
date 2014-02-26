@@ -14,9 +14,14 @@ import java.awt.Shape;
  */
 public abstract class Entity {
   public Vector3D position;
-  public Vector2D velocity;
+  public Vector2D velocity;  
   public Vector2D dimension;
-  public Shape _shape;
+  
+  // Some variables to automate some tedious tasks.
+  public Shape      _shape;
+  private Vector2D  VELOCITY_X_LIMIT;
+  private Vector2D  VELOCITY_Y_LIMIT;
+  private double    FRICTION;
   
   public Entity() { 
     this(0,0,0,0);
@@ -27,11 +32,18 @@ public abstract class Entity {
     velocity = new Vector3D(0, 0, 0);
     dimension = new Vector2D(w, h);
     _shape = new Rectangle();
+    VELOCITY_X_LIMIT = VELOCITY_Y_LIMIT = new Vector2D(-3, 3);
+    FRICTION = 0.3333;
   }
   
   public void update(double delta) {
     position = position.add(velocity);
-    velocity = velocity.scale(1 - (0.5 * delta));
+    velocity = velocity.scale(1 - ((1/FRICTION) * delta));
+  }
+  
+  public void setVelocityLimits(Vector2D xlimits, Vector2D ylimits){
+    VELOCITY_X_LIMIT = xlimits;
+    VELOCITY_Y_LIMIT = ylimits;
   }
   
   public void draw(GraphicsEngine engine, Graphics2D g) {

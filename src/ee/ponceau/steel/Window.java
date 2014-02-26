@@ -2,7 +2,6 @@ package ee.ponceau.steel;
 
 import ee.ponceau.steel.util.Log;
 import java.awt.image.BufferStrategy;
-import javax.swing.JFrame;
 
 /**
  *
@@ -17,10 +16,11 @@ public class Window extends javax.swing.JFrame {
   public Window() {
     super("Ponceau Steel");
     initComponents();
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setVisible(true); 
-    createBufferStrategy(2);
-    buffer = getBufferStrategy();
+    setVisible(true);
+    setResizable(false);
+    canvas.requestFocusInWindow();
+    canvas.createBufferStrategy(2);
+    buffer = canvas.getBufferStrategy();
   }
   
   /**
@@ -32,17 +32,25 @@ public class Window extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    canvas = new java.awt.Canvas();
+
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    setPreferredSize(new java.awt.Dimension(800, 400));
+
+    canvas.setBackground(new java.awt.Color(204, 204, 255));
+    canvas.setMinimumSize(new java.awt.Dimension(800, 400));
+    canvas.setName(""); // NOI18N
+    canvas.setPreferredSize(new java.awt.Dimension(800, 400));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 800, Short.MAX_VALUE)
+      .addComponent(canvas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 400, Short.MAX_VALUE)
+      .addComponent(canvas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     );
 
     pack();
@@ -72,5 +80,6 @@ public class Window extends javax.swing.JFrame {
     Main.i.mainLoop();
   }
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  public java.awt.Canvas canvas;
   // End of variables declaration//GEN-END:variables
 }

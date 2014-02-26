@@ -3,6 +3,7 @@ package ee.ponceau.steel;
 import ee.ponceau.steel.definitions.Entity;
 import ee.ponceau.steel.scenes.MainMenu;
 import ee.ponceau.steel.util.Log;
+import java.awt.Canvas;
 import java.awt.Toolkit;
 
 /**
@@ -13,6 +14,7 @@ public class Main {
   public final static Main i/*nstance*/ = new Main();
   
   public Window         window;
+  public Canvas         canvas;
   public GraphicsEngine graphics;
   public Stage          stage = new Stage();
   /* TODO
@@ -71,8 +73,9 @@ public class Main {
    */
   public synchronized void setWindow(Window window) {
     this.window = window;
-    this.stage.switchScene(new MainMenu());
+    this.canvas = window.canvas;
     this.graphics = new GraphicsEngine(window.buffer.getDrawGraphics());
+    this.stage.switchScene(new MainMenu());
     System.out.println("Debug Level: " + Log.STATE);
     this.notify(); // this begins the mainLoop
   }

@@ -5,8 +5,8 @@ package ee.ponceau.steel.util;
  * @author Evan
  */
 public class Cooldown {
-  public int value;
-  public int init_value;
+  public double value;
+  public double init_value;
   
   public Cooldown(int cooldown){
     init_value = value = cooldown;

@@ -5,7 +5,7 @@ package ee.ponceau.steel.util;
  * @author Evan
  */
 public class Vector2D {
-  public double x,y;
+  public double x = 0,y = 0;
   
   public Vector2D(double x, double y) {
     this.x = x;
@@ -28,8 +28,14 @@ public class Vector2D {
   }
   
   public Vector2D limit(double lower, double upper){
-    x = x < lower ? lower : x > upper ? upper : x;
-    y = y < lower ? lower : y > upper ? upper : y;
+    x = (x < lower) ? lower : (x > upper) ? upper : x;
+    y = (y < lower) ? lower : (y > upper) ? upper : y;
     return this;
+  }
+  
+  public double distance(Vector2D v) {
+    double _x = Math.abs(v.x - x);
+    double _y = Math.abs(v.y - y);
+    return Math.sqrt(_x * _x + _y * _y);
   }
 }

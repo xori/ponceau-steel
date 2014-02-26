@@ -41,7 +41,7 @@ public class Stage extends ArrayList<Entity>{
   }
   
   /**
-   * Swap current window listeners with the given one.
+   * Swap current input listeners with the given one.
    * If you call this function you are taking responsibility of the controls
    * of the given scene. The stage will no longer be able to remove the 
    * controls you give it.
@@ -50,12 +50,12 @@ public class Stage extends ArrayList<Entity>{
   public void switchControls(Controller newControls) {
     if(currentScene != null) {
       Controller c = currentScene.getController();
-      Main.i.window.removeMouseListener(c);
-      Main.i.window.removeMouseWheelListener(c);
-      Main.i.window.removeKeyListener(c);
+      Main.i.canvas.removeMouseListener(c);
+      Main.i.canvas.removeMouseWheelListener(c);
+      Main.i.canvas.removeKeyListener(c);
     }
-    Main.i.window.addKeyListener(newControls);
-    Main.i.window.addMouseWheelListener(newControls);
-    Main.i.window.addMouseListener(newControls);
+    Main.i.canvas.addKeyListener(newControls);
+    Main.i.canvas.addMouseWheelListener(newControls);
+    Main.i.canvas.addMouseListener(newControls);
   }
 }
