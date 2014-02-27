@@ -1,5 +1,7 @@
 package ee.ponceau.steel.util;
 
+import org.jbox2d.common.Vec2;
+
 /**
  *
  * @author Evan
@@ -17,6 +19,12 @@ public class Vector2D {
   }
   public int yi(){
     return (int) y;
+  }
+  public float xf(){
+    return (float) x;
+  }
+  public float yf(){
+    return (float) y;
   }
   
   public Vector2D add(Vector2D v2) {
@@ -37,5 +45,13 @@ public class Vector2D {
     double _x = Math.abs(v.x - x);
     double _y = Math.abs(v.y - y);
     return Math.sqrt(_x * _x + _y * _y);
+  }
+  
+  public Vec2 toVec() {
+    return new Vec2((float)x, (float)y);
+  }
+  
+  public String toString() {
+    return x + ", " + y;
   }
 }

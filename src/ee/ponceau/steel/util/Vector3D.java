@@ -1,5 +1,8 @@
 package ee.ponceau.steel.util;
 
+import org.jbox2d.common.Vec2;
+import org.jbox2d.common.Vec3;
+
 /**
  *
  * @author Evan
@@ -14,6 +17,9 @@ public class Vector3D extends Vector2D{
   
   public int zi() {
     return (int) z;
+  }
+  public float zf(){
+    return (float) x;
   }
   
   public String toString() {
@@ -54,5 +60,9 @@ public class Vector3D extends Vector2D{
     double _y = Math.abs(v.y - y);
     double _z = Math.abs(v.z - z);
     return Math.sqrt(_x * _x + _y * _y + _z * _z);
+  }
+  
+  public Vec3 toVec3() {
+    return new Vec3((float)x, (float)y, (float)z);
   }
 }

@@ -9,6 +9,7 @@ import ee.ponceau.steel.definitions.Scene;
 import ee.ponceau.steel.entities.Person;
 import ee.ponceau.steel.util.VirtualKeyboard;
 import java.awt.event.KeyEvent;
+import static ee.ponceau.steel.util.Log.*;
 
 /**
  *
@@ -45,8 +46,10 @@ public class MainMenu implements Scene{
         player.velocity.x -= delta * 3;
       if(key.isPressed(KeyEvent.VK_D))
         player.velocity.x += delta * 3;
-      player.velocity.limit(-2, 2);
     }
+    player.velocity.limit(-10, 10);
+    // TODO velocity not right.
+    LOG(player.velocity.x, player.velocity.y);
     ge.camera.pointAt(player);
   }
 

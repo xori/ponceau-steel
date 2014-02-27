@@ -18,6 +18,7 @@ public class Log {
          System.out.print(SEPARATOR);
       System.out.print(o[i]);
     }
+    System.out.println();
   }
   
   public static void WARNING(Object ... o) {
@@ -36,6 +37,7 @@ public class Log {
          System.err.print(SEPARATOR);
       System.err.print(o[i]);
     }
+    System.err.println();
   }
   
   public static boolean isDebug() {

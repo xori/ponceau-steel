@@ -17,8 +17,8 @@ public class Main {
   public Canvas         canvas;
   public GraphicsEngine graphics;
   public Stage          stage = new Stage();
+  public Physics        physics;
   /* TODO
-  public PhysicsEngine  physics; ?? is it needed? Or just do it in the Entity
   public ResourceManager loader;
    */
   
@@ -27,8 +27,7 @@ public class Main {
   
   private Main() {}
   
-  public synchronized void mainLoop () {
-    
+  public void mainLoop () {
     while(GAME_RUNNING) {
       //AI Update
       //Network Broadcast
@@ -36,19 +35,15 @@ public class Main {
       //onCollision Events
       //timed Events
       //process active-events queue
-      stage.currentScene.onUpdate((System.currentTimeMillis() - soFar) / 1000.0);
-      for(Entity e : stage) {
-        e.update((System.currentTimeMillis() - soFar) / 1000.0);
-      }
-      
-    // <graphics>
+      stage.currentScene.onUpdate(deltaFrom(soFar));
+      for(Entity e : stage)
+        e.update(deltaFrom(soFar));
+      physics.update(System.currentTimeMillis() - soFar);
       //TODO VFX Pre
       graphics.draw(System.currentTimeMillis() - soFar);
       //TODO VFX Post
-      //graphics.g.dispose();
       window.buffer.show();
       Toolkit.getDefaultToolkit().sync();
-    // </graphics>
       try {
         temp = soFar;
         soFar = System.currentTimeMillis();
@@ -56,6 +51,10 @@ public class Main {
       } catch(Exception e) { }
     }
     window.dispose();
+  }
+  
+  private double deltaFrom(long time) {
+    return (System.currentTimeMillis() - time) / 1000.0;
   }
 
   /**
@@ -74,6 +73,7 @@ public class Main {
   public synchronized void setWindow(Window window) {
     this.window = window;
     this.canvas = window.canvas;
+    this.physics = new Physics();
     this.graphics = new GraphicsEngine(window.buffer.getDrawGraphics());
     this.stage.switchScene(new MainMenu());
     System.out.println("Debug Level: " + Log.STATE);

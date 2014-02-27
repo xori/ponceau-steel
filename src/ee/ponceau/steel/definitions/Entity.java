@@ -33,7 +33,7 @@ public abstract class Entity {
     dimension = new Vector2D(w, h);
     _shape = new Rectangle();
     VELOCITY_X_LIMIT = VELOCITY_Y_LIMIT = new Vector2D(-3, 3);
-    FRICTION = 0.3333;
+    FRICTION = 0.1;
   }
   
   public void update(double delta) {
@@ -52,6 +52,14 @@ public abstract class Entity {
     g.draw(_shape);
   }
   
+  /**
+   * Used for Camera detection.
+   * This hitbox should only be used in the Camera class for determining
+   * whether to draw this entity. It thus *should* also be inaccurately *large*
+   * instead of accurately small.
+   * @param e Entity to test.
+   * @return true if entity collides with other given entity
+   */
   public boolean collides(Entity e) {
     // Do box collision. If you need more, override.
     return this.position.x > e.position.x + e.dimension.x ? false :
