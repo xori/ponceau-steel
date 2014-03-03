@@ -25,8 +25,6 @@ public class PhysicsProxy {
   }
   
   public void update(double delta) {
-    if(proxy.velocity.x != 0 || proxy.velocity.y != 0)
-      simulationBody.applyForceToCenter(proxy.velocity.toVec());
     if(!allowPositionModification) {
       Vec2 pos = simulationBody.getPosition();
       proxy.position.x = pos.x;
@@ -34,5 +32,9 @@ public class PhysicsProxy {
     } else {
       simulationBody.setTransform(proxy.position.toVec(), 0);
     }
+    if(proxy.velocity.x != 0 || proxy.velocity.y != 0)
+      simulationBody.applyLinearImpulse(
+              proxy.velocity.scale(simulationBody.getMass()).toVec(),
+              simulationBody.getPosition());
   }
 }

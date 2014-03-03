@@ -46,10 +46,10 @@ public class MainMenu implements Scene{
         player.velocity.x -= delta * 3;
       if(key.isPressed(KeyEvent.VK_D))
         player.velocity.x += delta * 3;
+    } else {
+      player.velocity = player.velocity.scale(0.7);
     }
     player.velocity.limit(-10, 10);
-    // TODO velocity not right.
-    LOG(player.velocity.x, player.velocity.y);
     ge.camera.pointAt(player);
   }
 

@@ -11,6 +11,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import static ee.ponceau.steel.util.Log.*;
+import org.jbox2d.callbacks.DebugDraw;
 
 /**
  * 
@@ -19,8 +20,8 @@ import static ee.ponceau.steel.util.Log.*;
 public class Physics {
   public static World world;
   
-  int velocityIterations = 60;
-  int positionIterations = 20;
+  int velocityIterations = 6;
+  int positionIterations = 2;
   
   public Physics() {
     // create World;
@@ -37,6 +38,7 @@ public class Physics {
   public static BodyDef DynamicDef(){
     return new BodyDef() {{
       type = BodyType.DYNAMIC;    
+      fixedRotation = true;
       position.set(0, 0);
     }};
   }
@@ -71,9 +73,9 @@ public class Physics {
     for(Entity e : Main.i.stage) {
       if(e instanceof PhysicalEntity && ((PhysicalEntity) e).isSimulating()){
         ((PhysicalEntity) e).getSimulationProxy().update(delta);
-        LOG(((PhysicalEntity) e).getSimulationProxy().simulationBody.getPosition());
       }
     }
     world.step((float)delta, velocityIterations, positionIterations);
+    world.clearForces();
   }
 }
