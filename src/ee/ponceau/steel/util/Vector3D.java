@@ -17,7 +17,7 @@ public class Vector3D extends Vector2D{
   }
   
   public String toString() {
-    return xi() + " " + yi() + " " + zi();
+    return x + " " + y + " " + z;
   }
 
   public Vector3D add(Vector2D v2) {
@@ -28,7 +28,9 @@ public class Vector3D extends Vector2D{
   }
   
   public Vector3D scale(double d) {
-    return new Vector3D(x*d, y*d, z);
+    super.scale(d);
+    z *= d;
+    return this;
   }
   
   public static Vector3D to3D(Vector2D v){

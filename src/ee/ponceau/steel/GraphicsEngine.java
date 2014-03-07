@@ -15,10 +15,10 @@ import java.util.Comparator;
  */
 public class GraphicsEngine {
   private Stage stage;
-  private Graphics2D g;
+  public Graphics2D g;
   public Camera camera = new Camera();
   
-  public final double MAXFPS = 60;
+  public final double MAXFPS = 40;
   
   public GraphicsEngine(Graphics g){
     this.g = (Graphics2D) g;

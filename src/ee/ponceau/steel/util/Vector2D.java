@@ -11,6 +11,8 @@ public class Vector2D {
     this.x = x;
     this.y = y;
   }
+
+  public Vector2D() {  }
   
   public int xi(){
     return (int) x;
@@ -23,8 +25,14 @@ public class Vector2D {
     return new Vector2D(x + v2.x, y + v2.y);
   }
   
+  public Vector2D $add(Vector2D v2) {
+    x += v2.x;    y += v2.y;
+    return this;
+  }
+  
   public Vector2D scale(double d) {
-    return new Vector2D(x * d, y * d);
+    x *= d; y *= d;
+    return this;
   }
   
   public Vector2D limit(double lower, double upper){
@@ -37,5 +45,9 @@ public class Vector2D {
     double _x = Math.abs(v.x - x);
     double _y = Math.abs(v.y - y);
     return Math.sqrt(_x * _x + _y * _y);
+  }
+  
+  public String toString() {
+    return xi() + ", " + yi();
   }
 }

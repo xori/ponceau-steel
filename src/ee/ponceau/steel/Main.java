@@ -5,7 +5,8 @@ import ee.ponceau.steel.scenes.MainMenu;
 import ee.ponceau.steel.util.Log;
 import java.awt.Canvas;
 import java.awt.Toolkit;
-
+import static ee.ponceau.steel.util.Log.*;
+import ee.ponceau.steel.util.Stats;
 /**
  *
  * @author Evan
@@ -17,10 +18,9 @@ public class Main {
   public Canvas         canvas;
   public GraphicsEngine graphics;
   public Stage          stage = new Stage();
-  /* TODO
-  public PhysicsEngine  physics; ?? is it needed? Or just do it in the Entity
-  public ResourceManager loader;
-   */
+  public Physics        physics;
+  //public ResourceManager loader;
+  private Stats         stats = new Stats();
   
   public static boolean GAME_RUNNING = true;
   public long soFar = System.currentTimeMillis(), temp;
@@ -28,8 +28,9 @@ public class Main {
   private Main() {}
   
   public synchronized void mainLoop () {
-    
+        
     while(GAME_RUNNING) {
+      stats.tick();
       //AI Update
       //Network Broadcast
       //Events
@@ -37,6 +38,7 @@ public class Main {
       //timed Events
       //process active-events queue
       stage.currentScene.onUpdate((System.currentTimeMillis() - soFar) / 1000.0);
+      physics.update((System.currentTimeMillis() - soFar) / 1000.0);
       for(Entity e : stage) {
         e.update((System.currentTimeMillis() - soFar) / 1000.0);
       }
@@ -44,6 +46,8 @@ public class Main {
     // <graphics>
       //TODO VFX Pre
       graphics.draw(System.currentTimeMillis() - soFar);
+      graphics.g.drawString(Double.toString(stats.average), 10, 10);
+      graphics.g.drawString(Double.toString(stats.max), 10, 20);
       //TODO VFX Post
       //graphics.g.dispose();
       window.buffer.show();
@@ -53,6 +57,8 @@ public class Main {
         temp = soFar;
         soFar = System.currentTimeMillis();
         Thread.sleep((long) (1000.0 / graphics.MAXFPS) - (soFar - temp));
+      } catch(IllegalArgumentException e) {
+        WARNING("Loop can't keep up.");
       } catch(Exception e) { }
     }
     window.dispose();
@@ -76,6 +82,7 @@ public class Main {
     this.canvas = window.canvas;
     this.graphics = new GraphicsEngine(window.buffer.getDrawGraphics());
     this.stage.switchScene(new MainMenu());
+    this.physics = new Physics(stage);
     System.out.println("Debug Level: " + Log.STATE);
     this.notify(); // this begins the mainLoop
   }

@@ -16,34 +16,36 @@ public abstract class Entity {
   public Vector3D position;
   public Vector2D velocity;  
   public Vector2D dimension;
+  /**
+   * If this object is not null then it should be considered in the simulation */
+  public PhysicalBody body;
   
   // Some variables to automate some tedious tasks.
   public Shape      _shape;
-  private Vector2D  VELOCITY_X_LIMIT;
-  private Vector2D  VELOCITY_Y_LIMIT;
-  private double    FRICTION;
   
   public Entity() { 
     this(0,0,0,0);
   }
   
+  /**
+   * A drawable object.
+   * @param x starting position
+   * @param y starting position
+   * @param w width, even if not used for drawing you should include this 
+   * variable as it is used for determining whether to draw the object or not
+   * @param h height, even if not used for drawing you should include this 
+   * variable as it is used for determining whether to draw the object or not
+   */
   public Entity(double x, double y, double w, double h) {
     position = new Vector3D(x, y, 0);
     velocity = new Vector3D(0, 0, 0);
     dimension = new Vector2D(w, h);
     _shape = new Rectangle();
-    VELOCITY_X_LIMIT = VELOCITY_Y_LIMIT = new Vector2D(-3, 3);
-    FRICTION = 0.3333;
   }
   
   public void update(double delta) {
-    position = position.add(velocity);
-    velocity = velocity.scale(1 - ((1/FRICTION) * delta));
-  }
-  
-  public void setVelocityLimits(Vector2D xlimits, Vector2D ylimits){
-    VELOCITY_X_LIMIT = xlimits;
-    VELOCITY_Y_LIMIT = ylimits;
+    // Leave this up to the Physics engine.
+    // position = position.add(velocity);
   }
   
   public void draw(GraphicsEngine engine, Graphics2D g) {
@@ -54,6 +56,7 @@ public abstract class Entity {
   
   public boolean collides(Entity e) {
     // Do box collision. If you need more, override.
+    // This is mainly only for the camera.
     return this.position.x > e.position.x + e.dimension.x ? false :
             this.position.y > e.position.y + e.dimension.y ? false :
             this.position.x + this.dimension.x < e.position.x ? false :

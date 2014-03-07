@@ -5,6 +5,7 @@ import ee.ponceau.steel.definitions.Scene;
 import ee.ponceau.steel.definitions.Entity;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *  A single stage for managing multiple "scenes".
@@ -57,5 +58,19 @@ public class Stage extends ArrayList<Entity>{
     Main.i.canvas.addKeyListener(newControls);
     Main.i.canvas.addMouseWheelListener(newControls);
     Main.i.canvas.addMouseListener(newControls);
+  }
+  /**
+   * This will delete the entity from the stage at a convenient time.
+   * This is done because the physics or graphics engines are looping through
+   * this list of items and they'll get an exception thrown if you just go and
+   * remove an item.
+   * @param e 
+   */
+  public void markForDelete(Entity e) {
+    deleteSoon.add(e);
+  }
+  private List<Entity> deleteSoon = new ArrayList<>();
+  public void purgeMarked() {
+    this.removeAll(deleteSoon);
   }
 }

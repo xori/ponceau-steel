@@ -7,9 +7,11 @@ import ee.ponceau.steel.definitions.Controller;
 import ee.ponceau.steel.definitions.Entity;
 import ee.ponceau.steel.definitions.Scene;
 import ee.ponceau.steel.entities.Person;
+import ee.ponceau.steel.entities.Wall;
+import ee.ponceau.steel.util.Vector2D;
 import ee.ponceau.steel.util.VirtualKeyboard;
 import java.awt.event.KeyEvent;
-
+import static ee.ponceau.steel.util.Log.LOG;
 /**
  *
  * @author Evan
@@ -17,20 +19,20 @@ import java.awt.event.KeyEvent;
 public class MainMenu implements Scene{
   Stage stage;
   GraphicsEngine ge;
-  public Entity player;
+  public Person player;
   
   @Override
   public void onLoad(Stage stage, GraphicsEngine g) {
     this.stage = stage;
     this.ge = g;
-    this.player = new Person(50,50,50);
+    this.player = new Person(0,0,30);
     stage.add(player);
     //TODO We need to define a map loading lib.
     // maybe a Tiled library already exists?
-    stage.add(new Entity(200, 0, 10, 400) {});
-    stage.add(new Entity(0, 200, 200, 10) {});
-    stage.add(new Entity(200, 200, 10, 200) {});
-    stage.add(new Entity(200, 200, 10, 200) {});
+    stage.add(new Wall(200, 0, 10, 400));
+    stage.add(new Wall(0, 200, 200, 10));
+    stage.add(new Wall(200, 200, 10, 200));
+    stage.add(new Wall(200, 200, 10, 200));
   }
   
   @Override
@@ -38,14 +40,13 @@ public class MainMenu implements Scene{
     if(!myControls.keys.isEmpty()){
       VirtualKeyboard key = myControls.keys;
       if(key.isPressed(KeyEvent.VK_W))
-        player.velocity.y -= delta * 3;
-      if(key.isPressed(KeyEvent.VK_S))
-        player.velocity.y += delta * 3;
+        player.velocity.y -= delta * player.speed;
+      else if(key.isPressed(KeyEvent.VK_S))
+        player.velocity.y += delta * player.speed;
       if(key.isPressed(KeyEvent.VK_A))
-        player.velocity.x -= delta * 3;
-      if(key.isPressed(KeyEvent.VK_D))
-        player.velocity.x += delta * 3;
-      player.velocity.limit(-2, 2);
+        player.velocity.x -= delta * player.speed;
+      else if(key.isPressed(KeyEvent.VK_D))
+        player.velocity.x += delta * player.speed;
     }
     ge.camera.pointAt(player);
   }
