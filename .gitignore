@@ -9,3 +9,7 @@ dist/
 *.war
 *.ear
 nbbuild.xml
+/lib/cling/core/manual/
+/lib/cling/core/src/
+/lib/cling/support/manual/
+/lib/cling/support/src/

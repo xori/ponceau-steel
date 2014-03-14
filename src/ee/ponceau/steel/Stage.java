@@ -24,6 +24,7 @@ public class Stage extends ArrayList<Entity>{
   public HashMap<Scene, ArrayList<Entity>> storedScenes = new HashMap<>();
   public Scene currentScene;
   
+  //TODO don't just switch willy nilly. Wait till next "tick"
   public void switchScene(Scene newScene) {
     if(currentScene != null){
       currentScene.onPause();
@@ -49,6 +50,7 @@ public class Stage extends ArrayList<Entity>{
    * @param newControls A new key/mouse binding.
    */
   public void switchControls(Controller newControls) {
+    if(newControls == null) return;
     if(currentScene != null) {
       Controller c = currentScene.getController();
       Main.i.canvas.removeMouseListener(c);

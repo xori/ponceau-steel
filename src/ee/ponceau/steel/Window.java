@@ -40,7 +40,6 @@ public class Window extends javax.swing.JFrame {
     canvas.setBackground(new java.awt.Color(204, 204, 255));
     canvas.setMinimumSize(new java.awt.Dimension(800, 400));
     canvas.setName(""); // NOI18N
-    canvas.setPreferredSize(new java.awt.Dimension(800, 400));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);

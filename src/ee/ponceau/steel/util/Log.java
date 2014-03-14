@@ -11,6 +11,15 @@ public class Log {
   public static Level STATE = Level.FATAL;
   private static final String SEPARATOR = ", ";
   
+  public static void OUT(Object ... o) {
+    for(int i = 0; i < o.length; i++){
+      if(i != 0)
+         System.out.print(SEPARATOR);
+      System.out.print(o[i]);
+    }
+    System.out.println();
+  }
+  
   public static void LOG(Object ... o) {
     if(STATE.ordinal() > Level.LOG.ordinal()) return;
     for(int i = 0; i < o.length; i++){

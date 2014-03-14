@@ -50,7 +50,7 @@ public class GraphicsEngine {
     
     // draw.
     for(Entity e : stage) {
-      if(camera.collides(e)){
+      if(e.drawAlways || camera.collides(e)){
         e.draw(this, newG);
       }
     }

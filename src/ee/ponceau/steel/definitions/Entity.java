@@ -23,6 +23,10 @@ public abstract class Entity {
   // Some variables to automate some tedious tasks.
   public Shape      _shape;
   
+  // If true, the graphics engine will always call the draw function even if 
+  // the camera isn't looking at it.
+  public boolean drawAlways = false;
+  
   public Entity() { 
     this(0,0,0,0);
   }

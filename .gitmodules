@@ -1,3 +1,0 @@
-[submodule "lib/cling"]
-	path = lib/cling
-	url = https://github.com/4thline/cling.git

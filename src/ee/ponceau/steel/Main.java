@@ -23,7 +23,7 @@ public class Main {
   private Stats         stats = new Stats();
   
   public static boolean GAME_RUNNING = true;
-  public long soFar = System.currentTimeMillis(), temp;
+  public long soFar = System.currentTimeMillis(), temp, sleepAmount;
   
   private Main() {}
   
@@ -34,7 +34,6 @@ public class Main {
       //AI Update
       //Network Broadcast
       //Events
-      //onCollision Events
       //timed Events
       //process active-events queue
       stage.currentScene.onUpdate((System.currentTimeMillis() - soFar) / 1000.0);
@@ -56,9 +55,11 @@ public class Main {
       try {
         temp = soFar;
         soFar = System.currentTimeMillis();
-        Thread.sleep((long) (1000.0 / graphics.MAXFPS) - (soFar - temp));
+        sleepAmount = (long) (1000.0 / graphics.MAXFPS) - (soFar - temp);
+        Thread.sleep(sleepAmount);
       } catch(IllegalArgumentException e) {
-        WARNING("Loop can't keep up.");
+        if(sleepAmount < -100)
+          WARNING("Loop can't keep up.");
       } catch(Exception e) { }
     }
     window.dispose();
