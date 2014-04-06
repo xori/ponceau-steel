@@ -1,9 +1,7 @@
 package ee.ponceau.steel;
 
 import ee.ponceau.steel.definitions.Entity;
-import ee.ponceau.steel.util.Log;
 import ee.ponceau.steel.util.Vector2D;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Collections;
@@ -14,7 +12,7 @@ import java.util.Comparator;
  * @author Evan
  */
 public class GraphicsEngine {
-  private Stage stage;
+  private final Stage stage;
   public Graphics2D g;
   public Camera camera = new Camera();
   
@@ -42,11 +40,8 @@ public class GraphicsEngine {
     
     // sort entities from bottom to top
     // using their z co-ordinate
-    Collections.sort(stage, new Comparator<Entity>() {
-      public int compare(Entity o1, Entity o2) {
-        return o2.position.zi() - o1.position.zi();
-      }
-    });
+    Collections.sort(stage, (Entity o1, Entity o2) -> 
+            o2.position.zi() - o1.position.zi());
     
     // draw.
     for(Entity e : stage) {
